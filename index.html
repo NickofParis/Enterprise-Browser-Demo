@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Portail Logistique - Authentification</title>
+    <!-- Bibliothèque légère pour générer le QR Code à la volée -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        /* Style standard pour affichage sur écran d'ordinateur (Desktop) */
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .desktop-card {
+            background: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 30px 40px;
+            width: 380px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-top: 0;
+            color: #343a40;
+            font-size: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 8px 10px;
+            font-size: 14px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 9px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        /* Bloc d'invitation et QR Code pour navigateur standard */
+        #demo-qr-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed #ced4da;
+            text-align: center;
+        }
+        .qr-instruction {
+            font-size: 13px;
+            color: #6c757d;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        #qrcode {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="desktop-card" id="loginCard">
+    <h2>Portail Logistique WMS</h2>
+    
+    <form id="loginForm" onsubmit="event.preventDefault(); alert('Connexion réussie !');">
+        <!-- Champ Login -->
+        <div class="form-group" id="group-username">
+            <label for="username">Identifiant (Login)</label>
+            <input type="text" id="username" name="username" placeholder="ex: OPE-842" required>
+        </div>
+
+        <!-- Champ Password l'un en dessous de l'autre -->
+        <div class="form-group" id="group-password">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">Se connecter</button>
+    </form>
+
+    <!-- Zone QR Code sous le formulaire -->
+    <div id="demo-qr-section">
+        <div class="qr-instruction">Essayez-moi sur un navigateur standard</div>
+        <div id="qrcode"></div>
+    </div>
+</div>
+
+<script>
+    // Génération automatique du QR Code avec l'URL actuelle de la page
+    window.addEventListener("DOMContentLoaded", function() {
+        const currentUrl = window.location.href;
+        new QRCode(document.getElementById("qrcode"), {
+            text: currentUrl,
+            width: 130,
+            height: 130,
+            colorDark: "#212529",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.M
+        });
+    });
+</script>
+
+</body>
+</html>
